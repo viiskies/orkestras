@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -17,10 +18,12 @@ class TaskController extends Controller
 
 
     private $entityManager;
+    private $taskRepository;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, TaskRepository $taskRepository)
     {
         $this->entityManager = $entityManager;
+        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -28,9 +31,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-//        $controller_name = 'TaskController';
+        $tasks = $this->taskRepository
+            ->findAll();
+
         return $this->render('task/index.html.twig', [
-            'controller_name' => 'TaskController',
+            'tasks' => $tasks,
         ]);
     }
 

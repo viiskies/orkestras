@@ -95,6 +95,36 @@ class Task
     }
 
     /**
+     * @return mixed
+     */
+    public function getPriorityString()
+    {
+        switch($this->getPriority()) {
+            case self::PRIORITY_HIGH:
+                return "High";
+                case self::PRIORITY_MEDIUM:
+                return "Medium";
+                case self::PRIORITY_LOW:
+                return "Low";
+        }
+    }
+    /**
+     * @return mixed
+     */
+    public function getStatusString()
+    {
+        switch($this->getStatus()) {
+            case self::STATUS_DONE:
+                return "Done";
+            case self::STATUS_IN_PROGRESS:
+                return "In progress";
+            case self::STATUS_PENDING:
+                return "Pending";
+        }
+    }
+
+
+    /**
      * @param mixed $priority
      */
     public function setPriority($priority): void
