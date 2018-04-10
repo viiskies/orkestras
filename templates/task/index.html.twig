@@ -10,6 +10,8 @@
             <th>Status</th>
             <th>Deadline</th>
             <th>Created At</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +23,8 @@
                 <td>{{ task.statusString }}</td>
                 <td>{{ task.deadline.format('Y-m-d H:i:s') }}</td>
                 <td>{{ task.createAt.format('Y-m-d H:i:s') }}</td>
+                <td><a href="{{ path('task.edit', {id: task.id}) }}">Edit</a></td>
+                <td><a href="{{ path('task.delete', {id: task.id}) }}">Delete</a></td>
             </tr>
         {% endfor %}
     </tbody>
