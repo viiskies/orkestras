@@ -64,28 +64,12 @@ class Task
     }
 
     /**
-     * @param mixed $createAt
-     */
-    public function setCreateAt($createAt): void
-    {
-        $this->createAt = $createAt;
-    }
-
-    /**
      * @Assert\NotBlank()
      * @Assert\Length(max=128)
      */
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title): void
-    {
-        $this->title = $title;
     }
 
     /**
@@ -99,15 +83,33 @@ class Task
 
     /**
      * @return mixed
+     * @Assert\GreaterThan("today")
+     */
+    public function getDeadline()
+    {
+        return $this->deadline;
+    }
+
+    /**
+     * @return mixed
+     * @Assert\Choice({0, 1, 2})
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return mixed
      */
     public function getPriorityString()
     {
         switch($this->getPriority()) {
             case self::PRIORITY_HIGH:
                 return "High";
-                case self::PRIORITY_MEDIUM:
+            case self::PRIORITY_MEDIUM:
                 return "Medium";
-                case self::PRIORITY_LOW:
+            case self::PRIORITY_LOW:
                 return "Low";
         }
     }
@@ -136,12 +138,19 @@ class Task
     }
 
     /**
-     * @return mixed
-     * @Assert\Choice({0, 1, 2})
+     * @param mixed $createAt
      */
-    public function getStatus()
+    public function setCreateAt($createAt): void
     {
-        return $this->status;
+        $this->createAt = $createAt;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title): void
+    {
+        $this->title = $title;
     }
 
     /**
@@ -150,15 +159,6 @@ class Task
     public function setStatus($status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return mixed
-     * @Assert\GreaterThan("today")
-     */
-    public function getDeadline()
-    {
-        return $this->deadline;
     }
 
     /**

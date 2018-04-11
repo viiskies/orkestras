@@ -16,7 +16,7 @@ class TaskFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, ["attr" => ["class" => "myclass"]])
             ->add('status', ChoiceType::class, [
 
                     'choices' => [
@@ -34,7 +34,7 @@ class TaskFormType extends AbstractType
                         'High' => Task::PRIORITY_HIGH,
                     ]]
             )
-            ->add('Submit', SubmitType::class);
+            ->add('Submit', SubmitType::class, ["attr" => ["class" => "btn btn-primary"]]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

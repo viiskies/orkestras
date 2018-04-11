@@ -1,2 +1,45 @@
-{{ form_start(form) }}
-{{ form_end(form) }}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col s6">
+            {{ form_start(form) }}
+
+            <div class="row">
+            <div class="input-field  col s12">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title, { attr: {class: "form-control"}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="input-field  col s12">
+                {{ form_label(form.status) }}
+                {{ form_widget(form.status, {attr: {class: "form-control"}}) }}
+                {{ form_errors(form.status) }}
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="input-field  col s12">
+                {{ form_label(form.deadline) }}
+                {{ form_widget(form.deadline, {attr: {class: "datepicker"}}) }}
+                {{ form_errors(form.deadline) }}
+            </div>
+            </div>
+
+                <div class="row">
+            <div class="input-field  col s12">
+                {{ form_label(form.priority) }}
+                {{ form_widget(form.priority, {attr: {class: "form-control"}}) }}
+                {{ form_errors(form.priority) }}
+            </div>
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
