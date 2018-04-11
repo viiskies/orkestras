@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
@@ -71,7 +72,8 @@ class Task
     }
 
     /**
-     * @return mixed
+     * @Assert\NotBlank()
+     * @Assert\Length(max=128)
      */
     public function getTitle()
     {
@@ -88,6 +90,7 @@ class Task
 
     /**
      * @return mixed
+     * @Assert\Choice({0, 1, 2})
      */
     public function getPriority()
     {
@@ -108,6 +111,7 @@ class Task
                 return "Low";
         }
     }
+
     /**
      * @return mixed
      */
@@ -123,7 +127,6 @@ class Task
         }
     }
 
-
     /**
      * @param mixed $priority
      */
@@ -134,6 +137,7 @@ class Task
 
     /**
      * @return mixed
+     * @Assert\Choice({0, 1, 2})
      */
     public function getStatus()
     {
@@ -150,6 +154,7 @@ class Task
 
     /**
      * @return mixed
+     * @Assert\GreaterThan("today")
      */
     public function getDeadline()
     {

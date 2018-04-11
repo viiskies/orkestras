@@ -36,16 +36,16 @@ class TaskController extends Controller
     }
 
     /**
-     * @Route("/task/create", name="task.create")
+     * @Route("/task/create/", name="task.create")
      */
     public function create(Request $request)
     {
         $task = new Task();
-        $task->setTitle('My amazing title');
+//        $task->setTitle('My amazing title');
         $form = $this->createForm(TaskFormType::class, $task);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var Task $data */
             $data = $form->getData();
@@ -69,27 +69,11 @@ class TaskController extends Controller
         if ($task === null) {
             throw $this->createNotFoundException("Task #" . $id . " does not exist.");
         }
-
-        $form = $this->createForm(TaskFormType::class, $task);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-
-            /** @var Task $data */
-            $data = $form->getData();
-//            $data->setCreateAt(new \DateTime());
-
-            $this->entityManager->persist($data);
-            $this->entityManager->flush();
-
-            return $this->redirect('/task');
-        }
-
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->handleMethod($request, $task);
     }
 
     /**
-     * @Route("/task/{id}/delete", name="task.delete")
+     * @Route("/task/{id}/delete/", name="task.delete")
      */
     public function delete($id)
     {
@@ -101,5 +85,29 @@ class TaskController extends Controller
         $this->entityManager->flush();
 
         return $this->redirect('/task');
+    }
+
+    /**
+     * @param Request $request
+     * @param $task
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    private function handleMethod(Request $request, $task)
+    {
+        $form = $this->createForm(TaskFormType::class, $task);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var Task $data */
+            $data = $form->getData();
+
+            $this->entityManager->persist($data);
+            $this->entityManager->flush();
+
+            return $this->redirect('/task');
+        }
+
+        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
 }
