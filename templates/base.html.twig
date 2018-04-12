@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         {% block stylesheets %}
+            {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">#}
             <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
         {% endblock %}
     </head>
@@ -12,11 +12,16 @@
     <div class="container">
         {% block body %}{% endblock %}
         <!-- Content here -->
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-        {% block javascripts %}
-            <script src="{{ asset('build/js/app.js') }}"></script>
-        {% endblock %}
     </div>
+    <!-- Compiled and minified JavaScript -->
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous">
+        </script>
+        <script src="{{ asset('build/js/app.js') }}"></script>
+    {% endblock %}
     </body>
 </html>

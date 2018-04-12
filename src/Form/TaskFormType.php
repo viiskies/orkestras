@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Task;
+use App\Repository\CategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -13,6 +16,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TaskFormType extends AbstractType
 {
+    /**
+     * @var \App\Repository\CategoryRepository
+     */
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,7 +38,12 @@ class TaskFormType extends AbstractType
                         'Done' => Task::STATUS_DONE,
                     ]]
             )
-            ->add('deadline', DateTimeType::class)
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'title',
+//                'choices' => $this->categoryRepository->findAll()
+            ])
+            ->add('deadline', DateTimeType::class, array('widget'=> 'single_text'))
             ->add('priority', ChoiceType::class, [
 
                     'choices' => [

@@ -50,6 +50,12 @@ class Task
      */
     private $createAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $category;
+
     public function getId()
     {
         return $this->id;
@@ -175,5 +181,21 @@ class Task
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 }

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('category.create') }}">make:category</a>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Tasks</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.title }}</td>
+                <td>
+                    <ul>
+                    {% for task in category.tasks %}
+                        <li>
+                            <a href="{{ path('task.edit', {id: task.id}) }}">{{ task.title }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td><a href="{{ path('category.edit', {id: category.id}) }}">Edit</a></td>
+                <td><a href="{{ path('category.delete', {id: category.id}) }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

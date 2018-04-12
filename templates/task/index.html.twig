@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <a href="{{ path('task.create') }}">make:task</a>
 <table>
     <thead>
     <tr>
         <th>#</th>
         <th>Title</th>
+        <th>Category</th>
         <th>Priority</th>
         <th>Status</th>
         <th>Deadline</th>
@@ -19,6 +21,13 @@
         <tr>
             <td>{{ task.id }}</td>
             <td>{{ task.title }}</td>
+            <td>
+                {% if task.category %}
+                    {{ task.category.title }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
             <td>{{ task.priorityString }}</td>
             <td>{{ task.statusString }}</td>
             <td>{{ task.deadline.format('Y-m-d H:i:s') }}</td>

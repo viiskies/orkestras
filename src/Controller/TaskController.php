@@ -23,7 +23,7 @@ class TaskController extends Controller
     }
 
     /**
-     * @Route("/task", name="task")
+     * @Route("/task/", name="task")
      */
     public function index()
     {

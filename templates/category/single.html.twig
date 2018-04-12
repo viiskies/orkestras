@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('category.create') }}">make:category</a>
+
+    <h1>{{ category.title }}</h1>
+
+    <ul>
+        {% for task in category.tasks %}
+            <li>
+                <p>
+                    <a href="{{ path('task.edit', {id: task.id}) }}">{{ task.title }}</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+   <a href="{{ path('category.edit', {id: category.id}) }}">Edit</a>
+   <a href="{{ path('category.delete', {id: category.id}) }}">Delete</a>
+
+
+{% endblock %}
